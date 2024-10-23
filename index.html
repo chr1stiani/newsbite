@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewsBite - AI-Powered News Summarizer</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.3.3/pixi.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cursor-effects@1.0.11/dist/browser.js"></script>
+    <!-- přidat pod existující linky -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="glass-nav">
+        <div class="logo">NewsBite</div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#team">Team</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main data-scroll-container>
+        <section id="home">
+            <h1 class="big-header">NewsBite</h1>
+            <p class="tagline"><span>AI-powered</span> news summaries at your fingertips</p>
+        </section>
+        <section id="features">
+            <h2>Features</h2>
+            <p class="section-description">Experience the power of AI-driven news summarization</p>
+            
+            <div class="features-grid">
+                <div class="feature-box">
+                    <i class="fas fa-bolt"></i>
+                    <div class="feature-content">
+                        <h3>Instant Summaries</h3>
+                        <p>Get concise news summaries in seconds using advanced AI technology</p>
+                    </div>
+                </div>
+                
+                <div class="feature-box">
+                    <i class="fas fa-language"></i>
+                    <div class="feature-content">
+                        <h3>Multi-Language Support</h3>
+                        <p>Translate and summarize news from 25+ languages instantly</p>
+                    </div>
+                </div>
+                
+                <div class="feature-box">
+                    <i class="fas fa-brain"></i>
+                    <div class="feature-content">
+                        <h3>Smart Analysis</h3>
+                        <p>AI-powered sentiment analysis and key point extraction</p>
+                    </div>
+                </div>
+                
+                <div class="feature-box">
+                    <i class="fas fa-mobile-alt"></i>
+                    <div class="feature-content">
+                        <h3>Mobile Ready</h3>
+                        <p>Access your news summaries anywhere, on any device</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="pricing" class="fullscreen">
+            <h2>Pricing</h2>
+            <div class="pricing-grid">
+                <div class="price-box">
+                    <h3>Basic</h3>
+                    <p class="price">$9.99/mo</p>
+                    <ul>
+                        <li>100 summaries/month</li>
+                        <li>5 languages</li>
+                        <li>Email support</li>
+                    </ul>
+                    <button>Choose Plan</button>
+                </div>
+                <div class="price-box featured">
+                    <h3>Pro</h3>
+                    <p class="price">$19.99/mo</p>
+                    <ul>
+                        <li>Unlimited summaries</li>
+                        <li>25 languages</li>
+                        <li>Priority support</li>
+                    </ul>
+                    <button>Choose Plan</button>
+                </div>
+                <div class="price-box">
+                    <h3>Enterprise</h3>
+                    <p class="price">Custom</p>
+                    <ul>
+                        <li>Custom solutions</li>
+                        <li>All languages</li>
+                        <li>Dedicated support</li>
+                    </ul>
+                    <button>Contact Us</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="team" class="fullscreen">
+            <h2>Our Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="./ote.jpg" alt="Team Member 1">
+                    <h3>Christian</h3>
+                    <p>Web Dev</p>
+                    <p>Working on: NewsBite launch</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="fullscreen">
+            <h2>Contact Us</h2>
+            <form>
+                <input type="text" placeholder="Name">
+                <input type="email" placeholder="Email">
+                <textarea placeholder="Message"></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 NewsBite. All rights reserved.</p>
+    </footer>
+
+    <script src="https://unpkg.com/kursor"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.9.3/tsparticles.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
+    <script src="https://unpkg.com/scrollreveal@4.0.9/dist/scrollreveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://unpkg.com/vanilla-tilt@1.8.0/dist/vanilla-tilt.min.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="script.js"></script>
+
+    <div class="scroll-indicator">
+        <div class="scroll-dot" data-section="home"></div>
+        <div class="scroll-dot" data-section="features"></div>
+        <div class="scroll-dot" data-section="pricing"></div>
+        <div class="scroll-dot" data-section="team"></div>
+        <div class="scroll-dot" data-section="contact"></div>
+    </div>
+</body>
+</html>

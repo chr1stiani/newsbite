@@ -1,0 +1,588 @@
+zlepši styly a grafické prvky, nejsem spokojen s mými barvami, uprav. Chci použít tmavě modrou barvu, bílou a černou. 
+
+    --background-color: #0a192f;  /* Tmavě modrá jako pozadí */
+    --accent-color: #64ffda;      /* Světle tyrkysová pro zvýraznění */
+    --text-color: #e6f1ff;        /* Světle modrá pro text */
+    --nav-bg-color: rgba(10, 25, 47, 0.85);  /* Průhledná tmavě modrá */
+    --secondary-color: #112240;    /* Světlejší tmavě modrá pro boxy */
+    --hover-color: #233554;        /* Barva pro hover efekty */
+
+.glass-nav {
+    backdrop-filter: blur(10px);
+    background-color: var(--nav-bg-color);
+    border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+    box-shadow: 0 10px 30px -10px rgba(2, 12, 27, 0.7);
+}
+
+.feature-box, .price-box, .team-member {
+    background-color: var(--secondary-color);
+    border: 1px solid rgba(100, 255, 218, 0.1);
+    box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+    backdrop-filter: blur(5px);
+}
+
+.feature-box:hover, .price-box:hover, .team-member:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 30px -15px rgba(2, 12, 27, 0.7);
+    border-color: var(--accent-color);
+}
+
+.cta-button, button[type="submit"] {
+    background-color: transparent;
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.cta-button:hover, button[type="submit"]:hover {
+    background-color: rgba(100, 255, 218, 0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(100, 255, 218, 0.2);
+}
+
+
+
+momentálně nemáme žádný styling u tlačítek v pricing tabu. Prosím přidej styling
+
+// ... existing code ...
+
+.price-box button {
+    background: linear-gradient(135deg, #6e8efb, #4a6cf7);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 80%;
+    margin-top: 20px;
+}
+
+.price-box button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(74, 108, 247, 0.4);
+}
+
+.featured button {
+    background: linear-gradient(135deg, #ff6b6b, #ee5253);
+}
+
+.featured button:hover {
+    box-shadow: 0 5px 15px rgba(238, 82, 83, 0.4);
+}
+
+// ... existing code ...
+
+
+right now the pfp of the team member is huge. Make it like a circle
+
+// ... existing code ...
+
+.team-member img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+}
+
+// ... existing code ...
+
+add background effects, flowing very dark blue animated gradient. Use custom JS libraries
+
+// Nastavení PIXI.js pro gradient pozadí
+const app = new PIXI.Application({
+    width: window.innerWidth,
+    height: window.innerHeight,
+    backgroundColor: 0x001233,
+    resolution: window.devicePixelRatio || 1,
+    antialias: true
+});
+
+document.body.appendChild(app.view);
+app.view.style.position = 'fixed';
+app.view.style.top = '0';
+app.view.style.left = '0';
+app.view.style.zIndex = '-1';
+
+// Vytvoření gradientu
+const colors = [0x001233, 0x001845, 0x002855, 0x001233];
+const gradientTexture = createGradientTexture(colors);
+const background = new PIXI.Sprite(gradientTexture);
+background.width = app.screen.width;
+background.height = app.screen.height;
+app.stage.addChild(background);
+
+// Funkce pro vytvoření gradientní textury
+function createGradientTexture(colors) {
+    const quality = 256;
+    const canvas = document.createElement('canvas');
+    canvas.width = quality;
+    canvas.height = 1;
+    
+    const ctx = canvas.getContext('2d');
+    const gradient = ctx.createLinearGradient(0, 0, quality, 0);
+    
+    colors.forEach((color, index) => {
+        gradient.addColorStop(index / (colors.length - 1), '#' + color.toString(16).padStart(6, '0'));
+    });
+    
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, quality, 1);
+    
+    return PIXI.Texture.from(canvas);
+}
+
+// Animace
+let time = 0;
+app.ticker.add(() => {
+    time += 0.005;
+    background.tilePosition.x = Math.sin(time) * 100;
+    background.tilePosition.y = Math.cos(time) * 100;
+});
+
+// Responzivita
+window.addEventListener('resize', () => {
+    app.renderer.resize(window.innerWidth, window.innerHeight);
+    background.width = app.screen.width;
+    background.height = app.screen.height;
+});
+
+// Přidání interaktivity s myší
+app.stage.interactive = true;
+app.stage.on('mousemove', (event) => {
+    const mousePosition = event.data.global;
+    background.tilePosition.x += (mousePosition.x - app.screen.width / 2) * 0.01;
+    background.tilePosition.y += (mousePosition.y - app.screen.height / 2) * 0.01;
+});
+
+nothing changed. Something is probably wrongly connected? 
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Nastavení PIXI.js pro gradient pozadí
+    const app = new PIXI.Application({
+        width: window.innerWidth,
+        height: window.innerHeight,
+        backgroundColor: 0x001233,
+        resolution: window.devicePixelRatio || 1,
+        antialias: true,
+        transparent: false
+    });
+
+    document.body.appendChild(app.view);
+    app.view.style.position = 'fixed';
+    app.view.style.top = '0';
+    app.view.style.left = '0';
+    app.view.style.zIndex = '-1';
+
+    // Vytvoření gradientu
+    const colors = [0x001233, 0x001845, 0x002855, 0x001233];
+    const gradientTexture = createGradientTexture(colors);
+    const background = new PIXI.TilingSprite(
+        gradientTexture,
+        app.screen.width,
+        app.screen.height
+    );
+    app.stage.addChild(background);
+
+    function createGradientTexture(colors) {
+        const quality = 256;
+        const canvas = document.createElement('canvas');
+        canvas.width = quality;
+        canvas.height = 1;
+        
+        const ctx = canvas.getContext('2d');
+        const gradient = ctx.createLinearGradient(0, 0, quality, 0);
+        
+        colors.forEach((color, index) => {
+            gradient.addColorStop(index / (colors.length - 1), '#' + color.toString(16).padStart(6, '0'));
+        });
+        
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, quality, 1);
+        
+        return PIXI.Texture.from(canvas);
+    }
+
+    // Animace
+    let time = 0;
+    app.ticker.add(() => {
+        time += 0.005;
+        background.tilePosition.x = Math.sin(time) * 100;
+        background.tilePosition.y = Math.cos(time) * 100;
+    });
+
+    // Responzivita
+    window.addEventListener('resize', () => {
+        app.renderer.resize(window.innerWidth, window.innerHeight);
+        background.width = app.screen.width;
+        background.height = app.screen.height;
+    });
+
+    // Přidání interaktivity s myší
+    app.stage.interactive = true;
+    app.stage.on('mousemove', (event) => {
+        const mousePosition = event.data.global;
+        background.tilePosition.x += (mousePosition.x - app.screen.width / 2) * 0.01;
+        background.tilePosition.y += (mousePosition.y - app.screen.height / 2) * 0.01;
+    });
+});
+
+the background should be black, only blobs should be dark blue, not the entire background
+
+document.addEventListener('DOMContentLoaded', () => {
+    const app = new PIXI.Application({
+        width: window.innerWidth,
+        height: window.innerHeight,
+        backgroundColor: 0x000000,  // Změna na černou
+        resolution: window.devicePixelRatio || 1,
+        antialias: true
+    });
+
+    document.body.appendChild(app.view);
+    app.view.style.position = 'fixed';
+    app.view.style.top = '0';
+    app.view.style.left = '0';
+    app.view.style.zIndex = '-1';
+
+    // Vytvoření blobů
+    const blobs = [];
+    const numBlobs = 5;
+
+    for (let i = 0; i < numBlobs; i++) {
+        const blob = new PIXI.Graphics();
+        const radius = Math.random() * 150 + 100;
+        
+        // Světlejší odstíny modré pro lepší viditelnost na černém pozadí
+        const colors = [0x002855, 0x003875, 0x004895];
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        
+        blob.beginFill(color, 0.15);  // Snížená průhlednost pro jemnější efekt
+        blob.drawCircle(0, 0, radius);
+        blob.endFill();
+        
+        blob.x = Math.random() * app.screen.width;
+        blob.y = Math.random() * app.screen.height;
+        
+        const blurFilter = new PIXI.filters.BlurFilter();
+        blurFilter.blur = 35;  // Zvýšené rozmazání
+        blob.filters = [blurFilter];
+        
+        blob.speed = {
+            x: (Math.random() - 0.5) * 0.5,
+            y: (Math.random() - 0.5) * 0.5
+        };
+
+        app.stage.addChild(blob);
+        blobs.push(blob);
+    }
+
+    // ... zbytek kódu zůstává stejný ...
+});
+
+
+ok thats fine. Now, i want to add features tab. The tab should be under header and description. Add small boxes (4 in a row) with icons and description next to them. 
+Make up the features, be aware of the styling we did, to match our webside aesthetic
+
+<section id="features">
+    <h2>Features</h2>
+    <p class="section-description">Experience the power of AI-driven news summarization</p>
+    
+    <div class="features-grid">
+        <div class="feature-box">
+            <i class="fas fa-bolt"></i>
+            <div class="feature-content">
+                <h3>Instant Summaries</h3>
+                <p>Get concise news summaries in seconds using advanced AI technology</p>
+            </div>
+        </div>
+        
+        <div class="feature-box">
+            <i class="fas fa-language"></i>
+            <div class="feature-content">
+                <h3>Multi-Language Support</h3>
+                <p>Translate and summarize news from 25+ languages instantly</p>
+            </div>
+        </div>
+        
+        <div class="feature-box">
+            <i class="fas fa-brain"></i>
+            <div class="feature-content">
+                <h3>Smart Analysis</h3>
+                <p>AI-powered sentiment analysis and key point extraction</p>
+            </div>
+        </div>
+        
+        <div class="feature-box">
+            <i class="fas fa-mobile-alt"></i>
+            <div class="feature-content">
+                <h3>Mobile Ready</h3>
+                <p>Access your news summaries anywhere, on any device</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+.section-description {
+    font-size: 1.2rem;
+    color: #8892b0;
+    text-align: center;
+    max-width: 600px;
+    margin: 1rem auto 3rem auto;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 2rem;
+}
+
+.feature-box {
+    display: flex;
+    align-items: flex-start;
+    background: rgba(0, 26, 51, 0.3);
+    padding: 2rem;
+    border-radius: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 132, 255, 0.1);
+}
+
+.feature-box i {
+    font-size: 2rem;
+    color: var(--accent-color);
+    margin-right: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.feature-content h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.feature-content p {
+    color: #8892b0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+tweak the pricing style to match more like the features tab. The colors mainly
+
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 2rem;
+}
+
+.price-box {
+    background: rgba(0, 26, 51, 0.3);
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.price-box h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.price {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--accent-color);
+    margin: 1.5rem 0;
+}
+
+.price-box ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 1.5rem 0;
+}
+
+.price-box li {
+    color: #8892b0;
+    margin: 0.8rem 0;
+    font-size: 0.95rem;
+}
+
+.price-box button {
+    background: rgba(0, 132, 255, 0.2);
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+    padding: 12px 30px;
+    border-radius: 15px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 80%;
+    margin-top: 20px;
+}
+
+.price-box button:hover {
+    background: var(--accent-color);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 132, 255, 0.2);
+}
+
+.price-box.featured {
+    background: rgba(0, 132, 255, 0.15);
+    transform: scale(1.05);
+    border: 1px solid rgba(0, 132, 255, 0.3);
+}
+
+.featured button {
+    background: var(--accent-color);
+    color: white;
+}
+
+.featured button:hover {
+    background: rgba(0, 132, 255, 0.9);
+    border-color: transparent;
+}
+
+@media (max-width: 768px) {
+    .pricing-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+also tweak the members tab with the contact form to match this style
+
+.team-member {
+    background: rgba(0, 26, 51, 0.3);
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 300px;
+}
+
+.team-member:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 132, 255, 0.1);
+}
+
+.team-member h3 {
+    font-size: 1.3rem;
+    margin: 1rem 0 0.5rem 0;
+    color: var(--text-color);
+}
+
+.team-member p {
+    color: #8892b0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Contact Form Styling */
+form {
+    background: rgba(0, 26, 51, 0.3);
+    padding: 2.5rem;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 500px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+form:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 132, 255, 0.1);
+}
+
+input, textarea {
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    background: rgba(0, 26, 51, 0.5);
+    border: 1px solid rgba(0, 132, 255, 0.2);
+    border-radius: 10px;
+    color: var(--text-color);
+    font-family: 'Poppins', sans-serif;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(0, 132, 255, 0.1);
+}
+
+textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+button[type="submit"] {
+    background: rgba(0, 132, 255, 0.2);
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+    padding: 12px 30px;
+    border-radius: 15px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+button[type="submit"]:hover {
+    background: var(--accent-color);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 132, 255, 0.2);
+}
+
+
+that's good. At this moment i wish to add animation to smooth the user experience. First animation should be tweaking the scroll behaving. YOu can use custom JS libs to smooth the scroll. Also add some custom scroll tab on the left of the site to let the user know where he is
+
+check the files, for some reason the smooth scroll is not shoving at all. Find out why
+
+// Initialize Locomotive Scroll
+const scroll = new LocomotiveScroll({
+    el: document.querySelector('[data-scroll-container]'),
+    smooth: true,
+    smoothMobile: true,
+    multiplier: 1,
+    lerp: 0.1
+});
+
+// Update scroll on window resize
+window.addEventListener('resize', () => {
+    scroll.update();
+});
+
+Now, when i click on the section from the navbar, we get teleported there. My wish is to keep the animation 
+// Handle navigation clicks
+document.querySelectorAll('.glass-nav a').forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault(); // Prevent default anchor behavior
+        const target = document.querySelector(link.getAttribute('href'));
+        scroll.scrollTo(target);
+    });
+});
+
